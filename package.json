@@ -5,7 +5,8 @@
   "repository": "Laboratoria/schemas",
   "scripts": {
     "pretest": "eslint .",
-    "test": "jest --verbose --coverage"
+    "test": "jest --verbose --coverage",
+    "changelog": "git log $(git describe --tags --abbrev=0)..HEAD --oneline --format=\"%h %s (%an <%ae>)\""
   },
   "dependencies": {
     "semver": "^6.0.0"
