@@ -56,7 +56,7 @@ module.exports = (conn, document) => {
   });
 
   TopicUnitPartSchema.index({ unit: 1, slug: 1 }, { unique: true });
-  TopicUnitPartSchema.index({ title: 'text', body: 'text' });
+  TopicUnitPartSchema.index({ title: 'text', searchableBody: 'text' });
 
   return TopicUnitPartSchema;
 };
