@@ -40,12 +40,12 @@ module.exports = (conn, document) => {
         this.searchableBody = domWrapper.textContent;
         return body;
       },
-      // required: true,
     },
     searchableBody: {
       type: String,
     },
     durationString: { type: String, required: true },
+    order: { type: Number },
   }, { collection: 'topic_unit_parts' });
 
   TopicUnitPartSchema.pre('validate', function (next) {

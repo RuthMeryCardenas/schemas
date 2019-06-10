@@ -18,6 +18,7 @@ module.exports = (conn) => {
       exerciseCount: { type: Number, required: true },
       partCount: { type: Number, required: true },
     },
+    order: { type: Number },
   }, { collection: 'topic_units' });
 
   TopicUnitSchema.index({ topic: 1, slug: 1 }, { unique: true });
