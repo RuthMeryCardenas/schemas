@@ -2,46 +2,38 @@
 // válidos de _habilidades_ (skills) en la versión especificada de
 // la _rúbrica_ y que las llaves de `reviewerSurveyResults` hacen
 // referencia a preguntas válidas del `ReviewerSurvey` en cuestión.
-
+const ReviewAnswerSchema = require('./ReviewAnswerSchema');
 
 module.exports = (conn) => {
   const ProjectFeedbackSchema = new conn.Schema({
-    project: {
+    cohortProject: {
       type: conn.Schema.Types.ObjectId,
-      ref: 'Project',
+      ref: 'CohortProject',
       required: true,
     },
-    cohort: {
+    cohortMembership: {
       type: conn.Schema.Types.ObjectId,
-      ref: 'Cohort',
+      ref: 'CohortMembership',
       required: true,
     },
-    // `uid` debería ser un `ObjectId` que apunte al `user`????
-    uid: { type: String, required: true }, // Firebase UID
-    // `uid` de la evaluadora...
-    createdBy: { type: String, required: true }, // Firebase UID
-    createdAt: { type: Date, required: true, default: Date.now },
-    // `rubric` hace referencia a la versión (major) de la rúbrica
+    createdBy: {
+      type: conn.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
     rubric: {
       type: String,
       required: true,
-      enum: ['1', '2'],
     },
-    // `rubricResults` debería ser requerido???
     rubricResults: {
       type: Map,
       of: Number,
-      required: true,
     },
-    // `reviewerSurvey` es el id de un objeto de tipo ReviewerSurvey
-    reviewerSurvey: {
-      type: conn.Schema.Types.ObjectId,
-      ref: 'ReviewerSurvey',
-      required: true,
-    },
-    // `reviewerSurveyResults` debería ser Map de Number o String????
-    reviewerSurveyResults: { type: Map, of: String },
-    notes: { type: String },
+    reviewerSurveyResults: [ReviewAnswerSchema(conn)],
   });
 
   return ProjectFeedbackSchema;

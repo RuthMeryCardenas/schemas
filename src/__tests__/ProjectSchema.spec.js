@@ -2,9 +2,8 @@ const mongoose = require('mongoose/browser');
 const { ProjectSchema } = require('../../')(mongoose);
 
 describe('ProjectSchema', () => {
-  it('should fail validation when fields missing', () => {
+  it('should fail validation when missing fields are provided', () => {
     const doc = new mongoose.Document({}, ProjectSchema);
-    // console.log(ProjectSchema.indexes());
     expect(doc.validateSync().errors).toMatchSnapshot();
   });
 
@@ -16,7 +15,7 @@ describe('ProjectSchema', () => {
       .catch(err => expect(err.errors.version.message).toBe('Invalid semver version foo'));
   });
 
-  it('should validate ...', (done) => {
+  it('should successfully validate with proper values', (done) => {
     const doc = new mongoose.Document({
       slug: 'cipher',
       repo: 'Laboratoria/curricula-js',

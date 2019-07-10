@@ -1,18 +1,20 @@
 const mongoose = require('mongoose/browser');
-const { ReviewerSurveySchema, ReviewQuestionSchema } = require('../../')(mongoose);
+const { ReviewQuestionSchema } = require('../../')(mongoose);
+const ReviewAnswerSchema = require('../ReviewAnswerSchema')(mongoose);
 
-describe('ReviewerSurveySchema', () => {
+
+describe('ReviewAnswerSchema', () => {
   it('should fail validation when missing fields are provided', () => {
-    const doc = new mongoose.Document({}, ReviewerSurveySchema);
+    const doc = new mongoose.Document({}, ReviewAnswerSchema);
     expect(doc.validateSync().errors).toMatchSnapshot();
   });
 
   it('should successfully validate with proper values', (done) => {
     const question = new mongoose.Document({}, ReviewQuestionSchema);
     const doc = new mongoose.Document({
-      questions: [question._id],
-      version: '2.0.0',
-    }, ReviewerSurveySchema);
+      question: question._id,
+      value: 'Crack',
+    }, ReviewAnswerSchema);
 
     return doc.validate((err) => {
       expect(err).toBe(null);
