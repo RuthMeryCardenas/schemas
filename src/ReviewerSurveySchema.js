@@ -1,3 +1,7 @@
+const {
+  semverVersion,
+} = require('./common');
+
 module.exports = (conn) => {
   const ReviewerSurveySchema = new conn.Schema({
     questions: {
@@ -5,10 +9,7 @@ module.exports = (conn) => {
       ref: 'ReviewQuestion',
       required: true,
     },
-    version: {
-      type: String,
-      required: true,
-    },
+    version: semverVersion,
   }, { collection: 'reviewer_surveys' });
 
   return ReviewerSurveySchema;
