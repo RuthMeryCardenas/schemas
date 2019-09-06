@@ -7,6 +7,17 @@ describe('ReviewerSurveySchema', () => {
     expect(doc.validateSync().errors).toMatchSnapshot();
   });
 
+  it('should fail validation when version not semver compatible', () => {
+    const question = new mongoose.Document({}, ReviewQuestionSchema);
+    const doc = new mongoose.Document({
+      questions: [question._id],
+      version: 'foo',
+    }, ReviewerSurveySchema);
+
+    return doc.validate()
+      .catch(err => expect(err.errors.version.message).toBe('Invalid semver version foo'));
+  });
+
   it('should successfully validate with proper values', (done) => {
     const question = new mongoose.Document({}, ReviewQuestionSchema);
     const doc = new mongoose.Document({
