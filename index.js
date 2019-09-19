@@ -23,6 +23,7 @@ const TopicSchema = require('./src/TopicSchema');
 const TopicUnitSchema = require('./src/TopicUnitSchema');
 const TopicUnitPartSchema = require('./src/TopicUnitPartSchema');
 const UserSchema = require('./src/UserSchema');
+const UserActivityFeedEventSchemas = require('./src/UserActivityFeedEventSchemas');
 
 
 module.exports = (conn, document) => ({
@@ -52,4 +53,5 @@ module.exports = (conn, document) => ({
   // eslint-disable-next-line no-undef
   TopicUnitPartSchema: TopicUnitPartSchema(conn, document || (typeof window !== 'undefined' ? window : {}).document),
   UserSchema: UserSchema(conn),
+  UserActivityFeedEventSchemas: UserActivityFeedEventSchemas(conn),
 });
