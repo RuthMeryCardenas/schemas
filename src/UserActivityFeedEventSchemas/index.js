@@ -3,6 +3,11 @@ const ReviewAnswerEventSchema = require('./ReviewAnswerEventSchema');
 
 module.exports = (conn) => {
   const UserActivityFeedEventSchema = new conn.Schema({
+    user: {
+      type: conn.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
     createdAt: {
       type: Date,
       default: Date.now,

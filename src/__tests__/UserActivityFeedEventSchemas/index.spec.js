@@ -10,6 +10,7 @@ describe('UserActivityFeedEventSchema', () => {
 
   it('should successfully validate with proper values', (done) => {
     const doc = new mongoose.Document({
+      user: mongoose.Types.ObjectId(),
       doc: mongoose.Types.ObjectId(),
       type: 'GenericEvent',
     }, UserActivityFeedEventSchema);
