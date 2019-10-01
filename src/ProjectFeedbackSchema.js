@@ -25,6 +25,9 @@ module.exports = (conn) => {
       type: Date,
       default: Date.now,
     },
+    notificationSentAt: {
+      type: Date,
+    },
     rubric: {
       type: String,
       required: true,
